@@ -8,4 +8,4 @@
 
 # Postman
 
-There is a Postman collection for all the calls you can do with this example in the postman directory.
+There is a Postman collection for all the calls you can do with this example in the `docs` directory.
