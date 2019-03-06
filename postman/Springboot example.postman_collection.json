@@ -1,0 +1,448 @@
+{
+	"info": {
+		"_postman_id": "20ebbb8a-10c3-4308-9c84-5c6ff7f98747",
+		"name": "Springboot example",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "beer",
+			"item": [
+				{
+					"name": "Get beer by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8081/api/v1/beers/34",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"beers",
+								"34"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create beer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"Matante\",\n\t\"color\":\"blonde\",\n\t\"ibu\":15,\n\t\"alcohol\":4.9,\n\t\"price\":5.00,\n\t\"brewery\":{\n\t\t\"id\":1\n\t},\n\t\"creator\":{\n\t\t\"id\":1\n\t}\n}"
+						},
+						"url": {
+							"raw": "localhost:8081/api/v1/beers",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"beers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "brewery",
+			"item": [
+				{
+					"name": "get all breweries",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8081/api/v1/breweries",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"breweries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get brewery by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8081/api/v1/breweries/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"breweries",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create brewery",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"Archibald\",\n\t\"address\":\"1021, boulevard du Lac\",\n\t\"phone\":\"418-841-2224\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8081/api/v1/breweries",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"breweries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get brewmasters",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8081/api/v1/breweries/1/brewMasters",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"breweries",
+								"1",
+								"brewMasters"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get beers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8081/api/v1/breweries/1/beers",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"breweries",
+								"1",
+								"beers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add brewmaster",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\":33\n}"
+						},
+						"url": {
+							"raw": "localhost:8081/api/v1/breweries/1/brewMasters",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"breweries",
+								"1",
+								"brewMasters"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "brewmaster",
+			"item": [
+				{
+					"name": "get brewmaster by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8081/api/v1/brewMasters/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"brewMasters",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create brewmaster",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"Roger\",\n\t\"experience\":\"MASTER\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8081/api/v1/brewMasters",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"brewMasters"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "invoice",
+			"item": [
+				{
+					"name": "get invoice by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8081/api/v1/invoices/235",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"invoices",
+								"235"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create invoice",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"purchaseItemList\":[\n\t\t{\n\t\t\t\"quantity\":3,\n\t\t\t\"beer\": {\n\t\t\t\t\"id\":34\n\t\t\t}\n\t\t},\n\t\t{\n\t\t\t\"quantity\":2,\n\t\t\t\"beer\": {\n\t\t\t\t\"id\":66\n\t\t\t}\n\t\t}\n\t]\n}"
+						},
+						"url": {
+							"raw": "localhost:8081/api/v1/invoices",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"invoices"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "goody",
+			"item": [
+				{
+					"name": "create goody",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"Chips\",\n\t\"description\":\"A LOT OF GOODIES :D\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8081/api/v1/goodies",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"goodies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get goody by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8081/api/v1/goodies/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"goodies",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "health check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8081/api/v1/actuator/health",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"v1",
+						"actuator",
+						"health"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,1 @@
+Extension used to mock final classes. This is an incubating feature.
