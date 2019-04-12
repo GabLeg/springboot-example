@@ -1,7 +1,7 @@
 package com.example.integration.config;
 
 import com.example.springbootexample.mappers.ModelMapper;
-import com.example.springbootexample.mappers.exceptions.ExceptionMapper;
+import com.example.springbootexample.controllers.exceptions.ExceptionMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

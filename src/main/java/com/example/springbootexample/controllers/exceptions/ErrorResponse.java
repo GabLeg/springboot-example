@@ -1,4 +1,4 @@
-package com.example.springbootexample.mappers.exceptions;
+package com.example.springbootexample.controllers.exceptions;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

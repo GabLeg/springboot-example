@@ -1,4 +1,4 @@
-package com.example.springbootexample.mappers.exceptions;
+package com.example.springbootexample.controllers.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

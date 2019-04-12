@@ -16,6 +16,7 @@ import java.util.Optional;
 @RequestMapping("/beers")
 public class BeerController {
 
+    // Using Repository directly on purpose. When doing CRUD, there is no need of Service.
     private final BeerRepository beerRepository;
     private final ModelMapper mapper;
 
