@@ -420,6 +420,35 @@
 			]
 		},
 		{
+			"name": "chuck",
+			"item": [
+				{
+					"name": "Chuck jokes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8081/api/v1/chuck",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"chuck"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "health check",
 			"request": {
 				"method": "GET",

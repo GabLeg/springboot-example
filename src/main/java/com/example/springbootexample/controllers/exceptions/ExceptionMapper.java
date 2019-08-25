@@ -18,4 +18,10 @@ public class ExceptionMapper extends ResponseEntityExceptionHandler {
         ErrorResponse error = new ErrorResponse(new Date(), HttpStatus.NOT_FOUND.value(), ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(value = Exception.class)
+    public ResponseEntity<Object> globalReturn(RuntimeException ex, WebRequest request) {
+        ErrorResponse error = new ErrorResponse(new Date(), HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }
