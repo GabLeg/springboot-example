@@ -1,14 +1,10 @@
 package com.example.springbootexample.config;
 
-import org.junit.runner.RunWith;
-import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.PropertySource;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@RunWith(SpringRunner.class)
-@PropertySource("classpath:application-test.properties")
-@Import(TestConfig.class)
+@ExtendWith(SpringExtension.class)
 @ActiveProfiles(value = {"test"})
 public abstract class TestParent {
 }

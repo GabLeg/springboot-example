@@ -9,7 +9,7 @@ import java.util.List;
 @Component
 public class ModelMapper {
 
-    private org.modelmapper.ModelMapper mapper;
+    private final org.modelmapper.ModelMapper mapper;
 
     public ModelMapper() {
         mapper = new org.modelmapper.ModelMapper();

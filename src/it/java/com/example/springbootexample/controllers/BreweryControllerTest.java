@@ -1,22 +1,9 @@
-package com.example.integration.controllers;
+package com.example.springbootexample.controllers;
 
-import com.example.integration.config.IntegrationTestParent;
-import com.example.springbootexample.controllers.dto.BrewMasterDTO;
-import com.example.springbootexample.domain.Brewery;
-import com.example.springbootexample.services.BreweryService;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import com.example.springbootexample.config.IntegrationTestParent;
+import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 
-import javax.persistence.EntityNotFoundException;
-import java.util.ArrayList;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 

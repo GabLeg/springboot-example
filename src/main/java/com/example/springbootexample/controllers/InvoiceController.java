@@ -6,9 +6,8 @@ import com.example.springbootexample.mappers.ModelMapper;
 import com.example.springbootexample.services.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.constraints.NotNull;
 
 @RestController
 @RequestMapping("/invoices")
@@ -25,7 +24,7 @@ public class InvoiceController {
 
     @GetMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
-    public InvoiceDTO getInvoice(@PathVariable("id") @NotNull Long id) {
+    public InvoiceDTO getInvoice(@PathVariable("id") @NonNull Long id) {
         return mapper.map(invoiceService.retrieveInvoice(id), InvoiceDTO.class);
     }
 

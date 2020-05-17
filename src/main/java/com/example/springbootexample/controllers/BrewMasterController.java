@@ -6,10 +6,10 @@ import com.example.springbootexample.mappers.ModelMapper;
 import com.example.springbootexample.repositories.BrewMasterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
-import javax.validation.constraints.NotNull;
 import java.util.Optional;
 
 @RestController
@@ -28,7 +28,7 @@ public class BrewMasterController {
 
     @GetMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
-    public BrewMasterDTO getBrewMaster(@PathVariable("id") @NotNull Long id) {
+    public BrewMasterDTO getBrewMaster(@PathVariable("id") @NonNull Long id) {
         Optional<BrewMaster> optionalBrewMaster = brewMasterRepository.findById(id);
         if (optionalBrewMaster.isPresent()) {
             return mapper.map(optionalBrewMaster.get(), BrewMasterDTO.class);

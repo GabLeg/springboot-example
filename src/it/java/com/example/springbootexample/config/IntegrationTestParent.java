@@ -1,16 +1,14 @@
-package com.example.integration.config;
+package com.example.springbootexample.config;
 
 import com.example.springbootexample.SpringbootExampleApplication;
-import com.example.springbootexample.config.ConfigService;
-import org.junit.Before;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -20,10 +18,9 @@ import org.springframework.web.context.WebApplicationContext;
 
 import javax.transaction.Transactional;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = {SpringbootExampleApplication.class})
 @TestPropertySource("classpath:application-test.properties")
-@ComponentScan("com.example.springbootexample")
 @ActiveProfiles("test")
 // Transactional + Sql combo make the test-data.sql to run every time. Data are always fresh for every test.
 @Transactional
@@ -42,7 +39,7 @@ public abstract class IntegrationTestParent {
     protected MockMvc mockMvc;
     protected MockRestServiceServer mockServer;
 
-    @Before
+    @BeforeEach
     public void init() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(context)
                 .build();

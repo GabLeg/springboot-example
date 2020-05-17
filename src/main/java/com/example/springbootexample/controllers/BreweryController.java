@@ -9,9 +9,9 @@ import com.example.springbootexample.mappers.ModelMapper;
 import com.example.springbootexample.services.BreweryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
@@ -29,7 +29,7 @@ public class BreweryController {
 
     @GetMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
-    public BreweryDTO getBrewery(@PathVariable("id") @NotNull Long id) {
+    public BreweryDTO getBrewery(@PathVariable("id") @NonNull Long id) {
         return mapper.map(breweryService.retrieveBrewery(id), BreweryDTO.class);
     }
 
@@ -49,20 +49,20 @@ public class BreweryController {
 
     @PutMapping("{id}/brewMasters")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void addBrewMaster(@PathVariable("id") @NotNull Long id, @RequestBody BrewMasterDTO brewMasterDTO) {
+    public void addBrewMaster(@PathVariable("id") @NonNull Long id, @RequestBody BrewMasterDTO brewMasterDTO) {
         BrewMaster brewMaster = mapper.map(brewMasterDTO, BrewMaster.class);
         breweryService.addBrewMaster(id, brewMaster);
     }
 
     @GetMapping("{id}/brewMasters")
     @ResponseStatus(HttpStatus.OK)
-    public List<BrewMasterDTO> getEmployees(@PathVariable("id") @NotNull Long id) {
+    public List<BrewMasterDTO> getEmployees(@PathVariable("id") @NonNull Long id) {
         return mapper.mapList(breweryService.retrieveEmployeeList(id), BrewMasterDTO.class);
     }
 
     @GetMapping("{id}/beers")
     @ResponseStatus(HttpStatus.OK)
-    public List<BeerDTO> getBeers(@PathVariable("id") @NotNull Long id) {
+    public List<BeerDTO> getBeers(@PathVariable("id") @NonNull Long id) {
         return mapper.mapList(breweryService.retrieveBeerList(id), BeerDTO.class);
     }
 }

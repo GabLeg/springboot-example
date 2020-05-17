@@ -1,4 +1,4 @@
-package com.example.springbootexample;
+package com.example.springbootexample.testUtils;
 
 import com.example.springbootexample.restClients.dto.ChuckJokeDTO;
 import com.example.springbootexample.restClients.dto.ChuckJokeValueDTO;
