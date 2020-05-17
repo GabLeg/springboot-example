@@ -1,7 +1,7 @@
-package com.example.integration.controllers;
+package com.example.springbootexample.controllers;
 
-import com.example.integration.config.IntegrationTestParent;
-import org.junit.Test;
+import com.example.springbootexample.config.IntegrationTestParent;
+import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;

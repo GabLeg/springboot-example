@@ -4,7 +4,7 @@
 
 # Swagger
 
-- http://localhost:8081/api/v1/swagger-ui.html#/
+- http://localhost:8081/api/v1/swagger-ui.html
 
 # Postman
 

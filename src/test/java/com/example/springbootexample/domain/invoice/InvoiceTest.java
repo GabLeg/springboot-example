@@ -1,12 +1,12 @@
 package com.example.springbootexample.domain.invoice;
 
-import com.example.springbootexample.InvoiceCreator;
 import com.example.springbootexample.config.TestParent;
-import org.junit.Test;
+import com.example.springbootexample.testUtils.InvoiceCreator;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class InvoiceTest extends TestParent {
 

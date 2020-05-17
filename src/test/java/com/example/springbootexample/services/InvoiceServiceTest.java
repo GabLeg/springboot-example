@@ -1,18 +1,19 @@
 package com.example.springbootexample.services;
 
-import com.example.springbootexample.InvoiceCreator;
 import com.example.springbootexample.config.TestParent;
 import com.example.springbootexample.domain.invoice.Invoice;
 import com.example.springbootexample.repositories.InvoiceRepository;
-import org.junit.Before;
-import org.junit.Test;
+import com.example.springbootexample.testUtils.InvoiceCreator;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -25,7 +26,7 @@ public class InvoiceServiceTest extends TestParent {
     private InvoiceService invoiceService;
     private InvoiceRepository invoiceRepositoryMock;
 
-    @Before
+    @BeforeEach
     public void init() {
         invoiceRepositoryMock = mock(InvoiceRepository.class);
         invoiceService = new InvoiceService(invoiceRepositoryMock, mock(EntityManager.class));
@@ -40,11 +41,12 @@ public class InvoiceServiceTest extends TestParent {
         assertEquals(AN_INVOICE, brewery);
     }
 
-    @Test(expected = EntityNotFoundException.class)
+    @Test
     public void givenUnknownBreweryId_whenRetrieveBrewery_thenThowEntityNotFound() {
         when(invoiceRepositoryMock.findById(UNKNOWN_ID)).thenReturn(Optional.empty());
 
-        invoiceService.retrieveInvoice(UNKNOWN_ID);
+        Assertions.assertThrows(EntityNotFoundException.class, () ->
+                invoiceService.retrieveInvoice(UNKNOWN_ID));
     }
 
     @Test

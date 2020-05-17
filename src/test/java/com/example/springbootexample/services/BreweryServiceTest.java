@@ -4,13 +4,14 @@ import com.example.springbootexample.config.TestParent;
 import com.example.springbootexample.domain.Brewery;
 import com.example.springbootexample.domain.brewMaster.BrewMaster;
 import com.example.springbootexample.repositories.BreweryRepository;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class BreweryServiceTest extends TestParent {
@@ -22,7 +23,7 @@ public class BreweryServiceTest extends TestParent {
     private BreweryService breweryService;
     private BreweryRepository breweryRepositoryMock;
 
-    @Before
+    @BeforeEach
     public void init() {
         breweryRepositoryMock = mock(BreweryRepository.class);
         breweryService = new BreweryService(breweryRepositoryMock);
@@ -37,11 +38,12 @@ public class BreweryServiceTest extends TestParent {
         assertEquals(A_BREWERY, brewery);
     }
 
-    @Test(expected = EntityNotFoundException.class)
+    @Test
     public void givenUnknownBreweryId_whenRetrieveBrewery_thenThowEntityNotFound() {
         when(breweryRepositoryMock.findById(UNKNOWN_ID)).thenReturn(Optional.empty());
 
-        breweryService.retrieveBrewery(UNKNOWN_ID);
+        Assertions.assertThrows(EntityNotFoundException.class, () ->
+                breweryService.retrieveBrewery(UNKNOWN_ID));
     }
 
     @Test
