@@ -7,6 +7,7 @@ import com.example.springbootexample.repositories.BreweryRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
@@ -20,12 +21,13 @@ public class BreweryServiceTest extends TestParent {
     private static final Long UNKNOWN_ID = 2L;
     private static final Brewery A_BREWERY = mock(Brewery.class);
 
-    private BreweryService breweryService;
+    @Mock
     private BreweryRepository breweryRepositoryMock;
+
+    private BreweryService breweryService;
 
     @BeforeEach
     public void init() {
-        breweryRepositoryMock = mock(BreweryRepository.class);
         breweryService = new BreweryService(breweryRepositoryMock);
     }
 

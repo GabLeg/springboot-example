@@ -7,6 +7,7 @@ import com.example.springbootexample.testUtils.InvoiceCreator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
@@ -14,7 +15,6 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class InvoiceServiceTest extends TestParent {
@@ -23,13 +23,16 @@ public class InvoiceServiceTest extends TestParent {
     private static final Long UNKNOWN_ID = 2L;
     private static final Invoice AN_INVOICE = InvoiceCreator.create();
 
-    private InvoiceService invoiceService;
+    @Mock
     private InvoiceRepository invoiceRepositoryMock;
+    @Mock
+    private EntityManager entityManager;
+
+    private InvoiceService invoiceService;
 
     @BeforeEach
     public void init() {
-        invoiceRepositoryMock = mock(InvoiceRepository.class);
-        invoiceService = new InvoiceService(invoiceRepositoryMock, mock(EntityManager.class));
+        invoiceService = new InvoiceService(invoiceRepositoryMock, entityManager);
     }
 
     @Test
