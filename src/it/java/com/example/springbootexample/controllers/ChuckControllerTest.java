@@ -11,25 +11,25 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class ChuckControllerTest extends IntegrationTestParent {
+class ChuckControllerTest extends IntegrationTestParent {
 
     @Test
-    public void givenHttpCall_whenGetChuckNorrisJoke_thenReturnJoke() throws Exception {
+    void givenHttpCall_whenGetChuckNorrisJoke_thenReturnJoke() throws Exception {
         String apiResponse = "{ \"type\": \"success\", \"value\": { \"id\": 123, \"joke\": \"A_JOKE\"}}";
         mockServer.expect(requestTo(configService.getChuckJokeUrl() + "/jokes/random"))
-                .andRespond(withSuccess(apiResponse, MediaType.APPLICATION_JSON));
+                  .andRespond(withSuccess(apiResponse, MediaType.APPLICATION_JSON));
 
         this.mockMvc.perform(get("/chuck"))
-                .andExpect(status().isOk())
-                .andExpect(content().string("{\"joke\":\"A_JOKE\"}"));
+                    .andExpect(status().isOk())
+                    .andExpect(content().string("{\"joke\":\"A_JOKE\"}"));
     }
 
     @Test
-    public void givenHttpCall_whenExternalServiceInError_thenReturnHttp500() throws Exception {
+    void givenHttpCall_whenExternalServiceInError_thenReturnHttp500() throws Exception {
         mockServer.expect(requestTo(configService.getChuckJokeUrl() + "/jokes/random"))
-                .andRespond(withServerError());
+                  .andRespond(withServerError());
 
         this.mockMvc.perform(get("/chuck"))
-                .andExpect(status().isInternalServerError());
+                    .andExpect(status().isInternalServerError());
     }
 }

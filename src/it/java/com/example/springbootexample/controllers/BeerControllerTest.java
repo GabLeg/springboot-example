@@ -8,25 +8,25 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class BeerControllerTest extends IntegrationTestParent {
+class BeerControllerTest extends IntegrationTestParent {
 
     private static final Long AN_ID = 1L;
     private static final Long UNKNOWN_ID = 2L;
 
     @Test
-    public void givenExistingBeerId_whenGetBeer_thenReturn200() throws Exception {
+    void givenExistingBeerId_whenGetBeer_thenReturn200() throws Exception {
         this.mockMvc.perform(get("/beers/" + AN_ID.toString()))
-                .andExpect(status().isOk());
+                    .andExpect(status().isOk());
     }
 
     @Test
-    public void givenUnknownBeerId_whenGetBeer_thenReturn404() throws Exception {
+    void givenUnknownBeerId_whenGetBeer_thenReturn404() throws Exception {
         this.mockMvc.perform(get("/beers/" + UNKNOWN_ID))
-                .andExpect(status().isNotFound());
+                    .andExpect(status().isNotFound());
     }
 
     @Test
-    public void givenNewBeer_whenCreateBeer_thenReturn201() throws Exception {
+    void givenNewBeer_whenCreateBeer_thenReturn201() throws Exception {
         String newBeer = "{" +
                 "\"name\":\"Matante\"," +
                 "\"color\":\"blonde\"," +
@@ -41,8 +41,8 @@ public class BeerControllerTest extends IntegrationTestParent {
                 "}" +
                 "}";
         this.mockMvc.perform(post("/beers")
-                        .content(newBeer)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated());
+                                     .content(newBeer)
+                                     .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isCreated());
     }
 }

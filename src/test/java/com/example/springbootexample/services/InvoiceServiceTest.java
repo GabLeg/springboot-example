@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.Mockito.when;
 
-public class InvoiceServiceTest extends TestParent {
+class InvoiceServiceTest extends TestParent {
 
     private static final Long EXISTING_ID = 1L;
     private static final Long UNKNOWN_ID = 2L;
@@ -31,12 +31,12 @@ public class InvoiceServiceTest extends TestParent {
     private InvoiceService invoiceService;
 
     @BeforeEach
-    public void init() {
+    void init() {
         invoiceService = new InvoiceService(invoiceRepositoryMock, entityManager);
     }
 
     @Test
-    public void givenBreweryId_whenRetrieveBrewery_thenReturnBrewery() {
+    void givenBreweryId_whenRetrieveBrewery_thenReturnBrewery() {
         when(invoiceRepositoryMock.findById(EXISTING_ID)).thenReturn(Optional.of(AN_INVOICE));
 
         Invoice brewery = invoiceService.retrieveInvoice(EXISTING_ID);
@@ -45,7 +45,7 @@ public class InvoiceServiceTest extends TestParent {
     }
 
     @Test
-    public void givenUnknownBreweryId_whenRetrieveBrewery_thenThowEntityNotFound() {
+    void givenUnknownBreweryId_whenRetrieveBrewery_thenThowEntityNotFound() {
         when(invoiceRepositoryMock.findById(UNKNOWN_ID)).thenReturn(Optional.empty());
 
         Assertions.assertThrows(EntityNotFoundException.class, () ->
@@ -53,7 +53,7 @@ public class InvoiceServiceTest extends TestParent {
     }
 
     @Test
-    public void givenInvoice_whenCreateInvoice_thenTotalIsCalculated() {
+    void givenInvoice_whenCreateInvoice_thenTotalIsCalculated() {
         when(invoiceRepositoryMock.save(AN_INVOICE)).thenReturn(AN_INVOICE);
 
         Invoice invoice = invoiceService.createInvoice(AN_INVOICE);

@@ -8,10 +8,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ChuckJokeMapperTest extends TestParent {
+class ChuckJokeMapperTest extends TestParent {
 
     @Test
-    public void givenChuckJokeDto_whenDtoToChuckJoke_thenReturnChuckJoke() {
+    void givenChuckJokeDto_whenDtoToChuckJoke_thenReturnChuckJoke() {
         ChuckJokeDTO chuckJokeDTO = ChuckJokeCreator.create();
 
         ChuckJoke chuckJoke = ChuckJokeMapper.dtoToChuckJoke(chuckJokeDTO);
