@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.0.RELEASE</version>
+        <version>2.4.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
@@ -16,8 +16,8 @@
 
     <properties>
         <java.version>11</java.version>
-        <modelmapper.version>2.3.7</modelmapper.version>
-        <spring-doc.version>1.3.9</spring-doc.version>
+        <modelmapper.version>2.3.9</modelmapper.version>
+        <spring-doc.version>1.5.2</spring-doc.version>
     </properties>
 
     <dependencies>
