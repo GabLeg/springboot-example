@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+option java_package = "com.example.springbootexample";
+
+service PopcornController {
+  rpc getPopcorn(PopcornRequest) returns (PopcornReply) {}
+}
+
+message PopcornRequest {
+  string id = 1;
+  string flavor = 2;
+}
+
+message PopcornReply {
+  string quantity = 1;
+}

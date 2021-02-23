@@ -8,25 +8,25 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class InvoiceControllerTest extends IntegrationTestParent {
+class InvoiceControllerTest extends IntegrationTestParent {
 
     private static final Long EXISTING_ID = 1L;
     private static final Long UNKNOWN_ID = 2L;
 
     @Test
-    public void givenInvoiceId_whenGetInvoice_thenReturn200() throws Exception {
+    void givenInvoiceId_whenGetInvoice_thenReturn200() throws Exception {
         this.mockMvc.perform(get("/invoices/" + EXISTING_ID))
-                .andExpect(status().isOk());
+                    .andExpect(status().isOk());
     }
 
     @Test
-    public void givenUnknownInvoiceId_whenGetInvoice_thenReturn404() throws Exception {
+    void givenUnknownInvoiceId_whenGetInvoice_thenReturn404() throws Exception {
         this.mockMvc.perform(get("/invoices/" + UNKNOWN_ID))
-                .andExpect(status().isNotFound());
+                    .andExpect(status().isNotFound());
     }
 
     @Test
-    public void givenNewInvoice_whenCreateInvoice_thenReturn201() throws Exception {
+    void givenNewInvoice_whenCreateInvoice_thenReturn201() throws Exception {
         String newInvoice = "{" +
                 "\"purchaseItemList\":[" +
                 "   {" +
@@ -44,8 +44,8 @@ public class InvoiceControllerTest extends IntegrationTestParent {
                 "]" +
                 "}";
         this.mockMvc.perform(post("/invoices")
-                            .content(newInvoice)
-                            .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated());
+                                     .content(newInvoice)
+                                     .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isCreated());
     }
 }

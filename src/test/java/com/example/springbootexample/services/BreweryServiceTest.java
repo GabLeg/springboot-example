@@ -15,7 +15,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-public class BreweryServiceTest extends TestParent {
+class BreweryServiceTest extends TestParent {
 
     private static final Long EXISTING_ID = 1L;
     private static final Long UNKNOWN_ID = 2L;
@@ -27,12 +27,12 @@ public class BreweryServiceTest extends TestParent {
     private BreweryService breweryService;
 
     @BeforeEach
-    public void init() {
+    void init() {
         breweryService = new BreweryService(breweryRepositoryMock);
     }
 
     @Test
-    public void givenBreweryId_whenRetrieveBrewery_thenReturnBrewery() {
+    void givenBreweryId_whenRetrieveBrewery_thenReturnBrewery() {
         when(breweryRepositoryMock.findById(EXISTING_ID)).thenReturn(Optional.of(A_BREWERY));
 
         Brewery brewery = breweryService.retrieveBrewery(EXISTING_ID);
@@ -41,7 +41,7 @@ public class BreweryServiceTest extends TestParent {
     }
 
     @Test
-    public void givenUnknownBreweryId_whenRetrieveBrewery_thenThowEntityNotFound() {
+    void givenUnknownBreweryId_whenRetrieveBrewery_thenThowEntityNotFound() {
         when(breweryRepositoryMock.findById(UNKNOWN_ID)).thenReturn(Optional.empty());
 
         Assertions.assertThrows(EntityNotFoundException.class, () ->
@@ -49,7 +49,7 @@ public class BreweryServiceTest extends TestParent {
     }
 
     @Test
-    public void givenBreweryIdAndBrewMaster_whenAddBrewMaster_thenBreweryRepositoryIsCalled() {
+    void givenBreweryIdAndBrewMaster_whenAddBrewMaster_thenBreweryRepositoryIsCalled() {
         when(breweryRepositoryMock.findById(EXISTING_ID)).thenReturn(Optional.of(A_BREWERY));
         BrewMaster brewMaster = new BrewMaster();
 

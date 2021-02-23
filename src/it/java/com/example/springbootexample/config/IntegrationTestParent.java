@@ -1,8 +1,14 @@
 package com.example.springbootexample.config;
 
 import com.example.springbootexample.SpringbootExampleApplication;
+import io.grpc.Channel;
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.lognet.springboot.grpc.autoconfigure.GRpcServerProperties;
+import org.lognet.springboot.grpc.context.LocalRunningGrpcPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -31,21 +37,37 @@ public abstract class IntegrationTestParent {
     private WebApplicationContext context;
 
     @Autowired
-    private RestTemplate restTemplate;
+    private GRpcServerProperties gRpcServerProperties;
+
+    @Autowired
+    protected RestTemplate restTemplate;
 
     @Autowired
     protected ConfigService configService;
 
     protected MockMvc mockMvc;
     protected MockRestServiceServer mockServer;
+    protected ManagedChannel grpcChannel;
 
     @BeforeEach
-    public void init() {
+    void init() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(context)
-                .build();
+                                      .build();
         //Create a fake Rest Service server
         RestGatewaySupport gateway = new RestGatewaySupport();
         gateway.setRestTemplate(restTemplate);
         mockServer = MockRestServiceServer.createServer(gateway);
+    }
+
+    @BeforeEach
+    void initGrpcChannel() {
+        ManagedChannelBuilder<?> channelBuilder = ManagedChannelBuilder.forAddress("localhost", gRpcServerProperties.getPort())
+                                                                       .usePlaintext();
+        grpcChannel = channelBuilder.build();
+    }
+
+    @AfterEach
+    void shutdownGrpcChannel() {
+        grpcChannel.shutdown();
     }
 }
