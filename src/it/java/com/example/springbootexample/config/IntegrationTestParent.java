@@ -1,16 +1,19 @@
 package com.example.springbootexample.config;
 
 import com.example.springbootexample.SpringbootExampleApplication;
-import io.grpc.Channel;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import org.apache.activemq.broker.BrokerService;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.lognet.springboot.grpc.autoconfigure.GRpcServerProperties;
-import org.lognet.springboot.grpc.context.LocalRunningGrpcPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
@@ -33,6 +36,8 @@ import javax.transaction.Transactional;
 @Sql("/data/test-data.sql")
 public abstract class IntegrationTestParent {
 
+    private static BrokerService activeMqBroker;
+
     @Autowired
     private WebApplicationContext context;
 
@@ -40,7 +45,13 @@ public abstract class IntegrationTestParent {
     private GRpcServerProperties gRpcServerProperties;
 
     @Autowired
+    protected ObjectMapper objectMapper;
+
+    @Autowired
     protected RestTemplate restTemplate;
+
+    @Autowired
+    protected JmsTemplate jmsTemplate;
 
     @Autowired
     protected ConfigService configService;
@@ -48,6 +59,14 @@ public abstract class IntegrationTestParent {
     protected MockMvc mockMvc;
     protected MockRestServiceServer mockServer;
     protected ManagedChannel grpcChannel;
+
+    @BeforeAll
+    static void initActiveMq() throws Exception {
+        activeMqBroker = new BrokerService();
+        activeMqBroker.addConnector("tcp://localhost:61616");
+        activeMqBroker.setPersistent(false);
+        activeMqBroker.start();
+    }
 
     @BeforeEach
     void init() {
@@ -66,8 +85,18 @@ public abstract class IntegrationTestParent {
         grpcChannel = channelBuilder.build();
     }
 
+    @BeforeEach
+    void resetActiveMq() throws Exception {
+        activeMqBroker.deleteAllMessages();
+    }
+
     @AfterEach
     void shutdownGrpcChannel() {
         grpcChannel.shutdown();
+    }
+
+    @AfterAll
+    static void shutdownActiveMq() throws Exception {
+        activeMqBroker.stop();
     }
 }

@@ -13,4 +13,7 @@ public class ConfigService {
 
     @Value("${rest-client.chuck-jokes.health-endpoint}")
     private String chuckJokeHealthEndpoint;
+
+    @Value("${message.topic.name}")
+    private String messageTopic;
 }
