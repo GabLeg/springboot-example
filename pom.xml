@@ -15,9 +15,11 @@
     <description>Demo project for Spring Boot</description>
 
     <properties>
+        <avro.version>1.11.0</avro.version>
         <java.version>11</java.version>
         <modelmapper.version>2.3.9</modelmapper.version>
         <spring-doc.version>1.5.2</spring-doc.version>
+        <testcontainers.version>1.16.2</testcontainers.version>
     </properties>
 
     <dependencies>
@@ -58,9 +60,19 @@
             <artifactId>spring-boot-starter-activemq</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+            <version>${spring-kafka.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-ui</artifactId>
             <version>${spring-doc.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.avro</groupId>
+            <artifactId>avro</artifactId>
+            <version>${avro.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -93,6 +105,12 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka-test</artifactId>
+            <version>${spring-kafka.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -123,6 +141,22 @@
                             <goal>compile</goal>
                             <goal>compile-custom</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.avro</groupId>
+                <artifactId>avro-maven-plugin</artifactId>
+                <version>${avro.version}</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>schema</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirectory>${project.basedir}/src/main/avro/</sourceDirectory>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

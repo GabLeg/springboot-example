@@ -16,4 +16,10 @@ public class ConfigService {
 
     @Value("${message.topic.name}")
     private String messageTopic;
+
+    @Value("${kafka.topic.party.name}")
+    private String partyTopic;
+
+    @Value("${kafka.topic.invitation.name}")
+    private String invitationTopic;
 }
