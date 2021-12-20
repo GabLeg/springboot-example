@@ -1,0 +1,19 @@
+{
+  "namespace": "com.example.springbootexample",
+  "type": "record",
+  "name": "PartyEvent",
+  "fields": [
+    {
+      "name": "location",
+      "type": "string"
+    },
+    {
+      "name": "date",
+      "type": "string"
+    },
+    {
+      "name": "maximumCapacity",
+      "type": "int"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "namespace": "com.example.springbootexample",
+  "type": "record",
+  "name": "InvitationEvent",
+  "fields": [
+    {
+      "name": "location",
+      "type": "string"
+    },
+    {
+      "name": "date",
+      "type": "string"
+    },
+    {
+      "name": "recipient",
+      "type": "string"
+    }
+  ]
+}
