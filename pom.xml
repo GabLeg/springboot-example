@@ -15,7 +15,7 @@
     <description>Demo project for Spring Boot</description>
 
     <properties>
-        <avro.version>1.11.0</avro.version>
+        <avro.version>1.11.3</avro.version>
         <java.version>11</java.version>
         <modelmapper.version>2.3.9</modelmapper.version>
         <spring-doc.version>1.5.2</spring-doc.version>
