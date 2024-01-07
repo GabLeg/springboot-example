@@ -8,8 +8,8 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 public class AppConfiguration {
 
-    @Bean
-    public RestTemplate getRestTemplate(RestTemplateBuilder builder) {
-        return builder.build();
-    }
+  @Bean
+  public RestTemplate getRestTemplate(RestTemplateBuilder builder) {
+    return builder.build();
+  }
 }

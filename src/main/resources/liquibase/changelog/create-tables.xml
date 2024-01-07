@@ -1,84 +1,87 @@
 <databaseChangeLog
-        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <changeSet id="1" author="GabLeg">
-        <createTable tableName="BREWERY">
-            <column autoIncrement="true" name="ID" type="bigint">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_BREWERY"/>
-            </column>
-            <column name="NAME" type="varchar(255)"/>
-            <column name="ADDRESS" type="varchar(255)"/>
-            <column name="PHONE" type="varchar(255)"/>
-        </createTable>
-        <createTable tableName="BREW_MASTER">
-            <column autoIncrement="true" name="ID" type="bigint">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_BREW_MASTER"/>
-            </column>
-            <column name="NAME" type="varchar(255)"/>
-            <column name="EXPERIENCE" type="varchar(255)"/>
-        </createTable>
-        <createTable tableName="BEER">
-            <column autoIncrement="true" name="ID" type="bigint">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_BEER"/>
-            </column>
-            <column name="NAME" type="varchar(255)"/>
-            <column name="COLOR" type="varchar(255)"/>
-            <column name="IBU" type="integer"/>
-            <column name="ALCOHOL" type="real"/>
-            <column name="PRICE" type="numeric"/>
-            <column name="FK_BREWERY" type="bigint">
-                <constraints nullable="false" foreignKeyName="FK_BEER_BREWERY" references="BREWERY(ID)"/>
-            </column>
-            <column name="FK_BREW_MASTER" type="bigint">
-                <constraints nullable="false" foreignKeyName="FK_BEER_BREW_MASTER" references="BREW_MASTER(ID)"/>
-            </column>
-        </createTable>
-        <createTable tableName="INVOICE">
-            <column autoIncrement="true" name="ID" type="bigint">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_INVOICE"/>
-            </column>
-            <column name="DATE" type="datetime"/>
-            <column name="TOTAL" type="numeric"/>
-        </createTable>
-        <createTable tableName="PURCHASE_ITEM">
-            <column autoIncrement="true" name="ID" type="bigint">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PURCHASE_ITEM"/>
-            </column>
-            <column name="QUANTITY" type="integer"/>
-            <column name="FK_BEER" type="bigint">
-                <constraints nullable="false" foreignKeyName="FK_PURCHASE_ITEM_BEER" references="BEER(ID)"/>
-            </column>
-            <column name="FK_INVOICE" type="bigint">
-                <constraints nullable="false" foreignKeyName="FK_PURCHASE_ITEM_INVOICE" references="INVOICE(ID)"/>
-            </column>
-        </createTable>
-        <createTable tableName="GOODY">
-            <column autoIncrement="true" name="ID" type="bigint">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_GOODY"/>
-            </column>
-            <column name="NAME" type="varchar(255)"/>
-            <column name="DESCRIPTION" type="varchar(255)"/>
-        </createTable>
+  <changeSet id="1" author="GabLeg">
+    <createTable tableName="BREWERY">
+      <column autoIncrement="true" name="ID" type="bigint">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="PK_BREWERY"/>
+      </column>
+      <column name="NAME" type="varchar(255)"/>
+      <column name="ADDRESS" type="varchar(255)"/>
+      <column name="PHONE" type="varchar(255)"/>
+    </createTable>
+    <createTable tableName="BREW_MASTER">
+      <column autoIncrement="true" name="ID" type="bigint">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="PK_BREW_MASTER"/>
+      </column>
+      <column name="NAME" type="varchar(255)"/>
+      <column name="EXPERIENCE" type="varchar(255)"/>
+    </createTable>
+    <createTable tableName="BEER">
+      <column autoIncrement="true" name="ID" type="bigint">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="PK_BEER"/>
+      </column>
+      <column name="NAME" type="varchar(255)"/>
+      <column name="COLOR" type="varchar(255)"/>
+      <column name="IBU" type="integer"/>
+      <column name="ALCOHOL" type="real"/>
+      <column name="PRICE" type="numeric"/>
+      <column name="FK_BREWERY" type="bigint">
+        <constraints nullable="false" foreignKeyName="FK_BEER_BREWERY" references="BREWERY(ID)"/>
+      </column>
+      <column name="FK_BREW_MASTER" type="bigint">
+        <constraints nullable="false" foreignKeyName="FK_BEER_BREW_MASTER" references="BREW_MASTER(ID)"/>
+      </column>
+    </createTable>
+    <createTable tableName="INVOICE">
+      <column autoIncrement="true" name="ID" type="bigint">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="PK_INVOICE"/>
+      </column>
+      <column name="DATE" type="datetime"/>
+      <column name="TOTAL" type="numeric"/>
+    </createTable>
+    <createTable tableName="PURCHASE_ITEM">
+      <column autoIncrement="true" name="ID" type="bigint">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PURCHASE_ITEM"/>
+      </column>
+      <column name="QUANTITY" type="integer"/>
+      <column name="FK_BEER" type="bigint">
+        <constraints nullable="false" foreignKeyName="FK_PURCHASE_ITEM_BEER" references="BEER(ID)"/>
+      </column>
+      <column name="FK_INVOICE" type="bigint">
+        <constraints nullable="false" foreignKeyName="FK_PURCHASE_ITEM_INVOICE" references="INVOICE(ID)"/>
+      </column>
+    </createTable>
+    <createTable tableName="GOODY">
+      <column autoIncrement="true" name="ID" type="bigint">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="PK_GOODY"/>
+      </column>
+      <column name="NAME" type="varchar(255)"/>
+      <column name="DESCRIPTION" type="varchar(255)"/>
+    </createTable>
 
 
-        <!-- Intersection table -->
-        <createTable tableName="BREWERY_BREW_MASTER">
-            <column autoIncrement="true" name="BREW_MASTER_ID" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column autoIncrement="true" name="BREWERY_ID" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-        <addPrimaryKey tableName="BREWERY_BREW_MASTER" columnNames="BREW_MASTER_ID,BREWERY_ID" constraintName="PK_BREWERY_BREW_MASTER"/>
-        <addForeignKeyConstraint baseTableName="BREWERY_BREW_MASTER" baseColumnNames="BREW_MASTER_ID" constraintName="FK_BREW_MASTER_BREW_MASTER"
-                                 referencedTableName="BREW_MASTER"
-                                 referencedColumnNames="ID"/>
-        <addForeignKeyConstraint baseTableName="BREWERY_BREW_MASTER" baseColumnNames="BREWERY_ID" constraintName="FK_BREWERY_BREWERY"
-                                 referencedTableName="BREWERY"
-                                 referencedColumnNames="ID"/>
-    </changeSet>
+    <!-- Intersection table -->
+    <createTable tableName="BREWERY_BREW_MASTER">
+      <column autoIncrement="true" name="BREW_MASTER_ID" type="bigint">
+        <constraints nullable="false"/>
+      </column>
+      <column autoIncrement="true" name="BREWERY_ID" type="bigint">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+    <addPrimaryKey tableName="BREWERY_BREW_MASTER" columnNames="BREW_MASTER_ID,BREWERY_ID"
+                   constraintName="PK_BREWERY_BREW_MASTER"/>
+    <addForeignKeyConstraint baseTableName="BREWERY_BREW_MASTER" baseColumnNames="BREW_MASTER_ID"
+                             constraintName="FK_BREW_MASTER_BREW_MASTER"
+                             referencedTableName="BREW_MASTER"
+                             referencedColumnNames="ID"/>
+    <addForeignKeyConstraint baseTableName="BREWERY_BREW_MASTER" baseColumnNames="BREWERY_ID"
+                             constraintName="FK_BREWERY_BREWERY"
+                             referencedTableName="BREWERY"
+                             referencedColumnNames="ID"/>
+  </changeSet>
 </databaseChangeLog>

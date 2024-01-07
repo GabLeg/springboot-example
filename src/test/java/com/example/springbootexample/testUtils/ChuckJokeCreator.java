@@ -1,18 +1,18 @@
 package com.example.springbootexample.testUtils;
 
-import com.example.springbootexample.restClients.dto.ChuckJokeDTO;
-import com.example.springbootexample.restClients.dto.ChuckJokeValueDTO;
+import com.example.springbootexample.infra.client.dto.ChuckJokeDto;
+import com.example.springbootexample.infra.client.dto.ChuckJokeValueDto;
 
 public class ChuckJokeCreator {
-    public static final String JOKE = "I AM A BANANA !";
+  public static final String JOKE = "I AM A BANANA !";
 
-    public static ChuckJokeDTO create() {
-        ChuckJokeDTO chuckJokeDTO = new ChuckJokeDTO();
-        chuckJokeDTO.setType("A_TYPE");
-        ChuckJokeValueDTO chuckJokeValueDTO = new ChuckJokeValueDTO();
-        chuckJokeValueDTO.setId(123);
-        chuckJokeValueDTO.setJoke(JOKE);
-        chuckJokeDTO.setValue(chuckJokeValueDTO);
-        return chuckJokeDTO;
-    }
+  public static ChuckJokeDto create() {
+    ChuckJokeDto chuckJokeDTO = new ChuckJokeDto();
+    chuckJokeDTO.setType("A_TYPE");
+    ChuckJokeValueDto chuckJokeValueDTO = new ChuckJokeValueDto();
+    chuckJokeValueDTO.setId(123);
+    chuckJokeValueDTO.setJoke(JOKE);
+    chuckJokeDTO.setValue(chuckJokeValueDTO);
+    return chuckJokeDTO;
+  }
 }

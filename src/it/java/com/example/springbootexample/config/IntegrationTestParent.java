@@ -1,7 +1,7 @@
 package com.example.springbootexample.config;
 
 import com.example.springbootexample.SpringbootExampleApplication;
-import com.example.springbootexample.services.DoSomethingWithKafkaEventService;
+import com.example.springbootexample.domain.services.DoSomethingWithKafkaEventService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
@@ -11,7 +11,6 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -49,99 +48,88 @@ import java.util.Map;
 @Sql("/data/test-data.sql")
 public abstract class IntegrationTestParent {
 
-    protected static final String PARTY_TOPIC = "party-topic";
-    protected static final String INVITATION_TOPIC = "invitation-topic";
-    protected static final EmbeddedKafkaBroker KAFKA = new EmbeddedKafkaBroker(1, true, PARTY_TOPIC, INVITATION_TOPIC).kafkaPorts(9092);
+  protected static final String PARTY_TOPIC = "party-topic";
+  protected static final String INVITATION_TOPIC = "invitation-topic";
+  protected static final EmbeddedKafkaBroker KAFKA = new EmbeddedKafkaBroker(1, true, PARTY_TOPIC, INVITATION_TOPIC).kafkaPorts(9092);
+  protected static KafkaConsumer<String, String> kafkaConsumerFixture;
+  protected static KafkaTemplate<String, String> kafkaProducerFixture;
+  private static boolean started = false;
+  private static BrokerService activeMqBroker;
+  @Autowired
+  protected ObjectMapper objectMapper;
+  @Autowired
+  protected RestTemplate restTemplate;
+  @Autowired
+  protected JmsTemplate jmsTemplate;
+  @Autowired
+  protected ConfigService configService;
+  @MockBean
+  protected DoSomethingWithKafkaEventService doSomethingWithKafkaEventService;
+  protected MockMvc mockMvc;
+  protected MockRestServiceServer mockServer;
+  protected ManagedChannel grpcChannel;
+  @Autowired
+  private WebApplicationContext context;
+  @Autowired
+  private GRpcServerProperties gRpcServerProperties;
 
-    private static boolean started = false;
-    private static BrokerService activeMqBroker;
-    protected static KafkaConsumer<String, String> kafkaConsumerFixture;
-    protected static KafkaTemplate<String, String> kafkaProducerFixture;
-
-    @Autowired
-    private WebApplicationContext context;
-
-    @Autowired
-    private GRpcServerProperties gRpcServerProperties;
-
-    @Autowired
-    protected ObjectMapper objectMapper;
-
-    @Autowired
-    protected RestTemplate restTemplate;
-
-    @Autowired
-    protected JmsTemplate jmsTemplate;
-
-    @Autowired
-    protected ConfigService configService;
-
-    @MockBean
-    protected DoSomethingWithKafkaEventService doSomethingWithKafkaEventService;
-
-    protected MockMvc mockMvc;
-    protected MockRestServiceServer mockServer;
-    protected ManagedChannel grpcChannel;
-
-    @BeforeAll
-    static void startEmbeddedServer() throws Exception {
-        if (!started) {
-            started = true;
-            activeMqBroker = new BrokerService();
-            activeMqBroker.addConnector("tcp://localhost:61616");
-            activeMqBroker.setPersistent(false);
-            activeMqBroker.start();
-            KAFKA.afterPropertiesSet();
-            kafkaConsumerFixture = createKafkaConsumerFixture();
-            kafkaProducerFixture = createKafkaProducerFixture();
-        }
+  @BeforeAll
+  static void startEmbeddedServer() throws Exception {
+    if (!started) {
+      started = true;
+      activeMqBroker = new BrokerService();
+      activeMqBroker.addConnector("tcp://localhost:61616");
+      activeMqBroker.setPersistent(false);
+      activeMqBroker.start();
+      KAFKA.afterPropertiesSet();
+      kafkaConsumerFixture = createKafkaConsumerFixture();
+      kafkaProducerFixture = createKafkaProducerFixture();
     }
+  }
 
-    @BeforeEach
-    void init() {
-        this.mockMvc = MockMvcBuilders.webAppContextSetup(context)
-                                      .build();
-        //Create a fake Rest Service server
-        RestGatewaySupport gateway = new RestGatewaySupport();
-        gateway.setRestTemplate(restTemplate);
-        mockServer = MockRestServiceServer.createServer(gateway);
-    }
+  private static KafkaConsumer<String, String> createKafkaConsumerFixture() {
+    Map<String, Object> props = new HashMap<>();
+    props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, KAFKA.getBrokersAsString());
+    props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+    props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+    props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+    props.put(ConsumerConfig.GROUP_ID_CONFIG, "assertion-consumer-group");
+    KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<>(props);
+    kafkaConsumer.subscribe(Collections.singleton(PARTY_TOPIC));
+    kafkaConsumer.subscribe(Collections.singleton(INVITATION_TOPIC));
+    return kafkaConsumer;
+  }
 
-    @BeforeEach
-    void initGrpcChannel() {
-        ManagedChannelBuilder<?> channelBuilder = ManagedChannelBuilder.forAddress("localhost", gRpcServerProperties.getPort())
-                                                                       .usePlaintext();
-        grpcChannel = channelBuilder.build();
-    }
+  private static KafkaTemplate<String, String> createKafkaProducerFixture() {
+    Map<String, Object> props = new HashMap<>();
+    props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, KAFKA.getBrokersAsString());
+    props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+    props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+    return new KafkaTemplate<>(new DefaultKafkaProducerFactory<>(props));
+  }
 
-    @BeforeEach
-    void resetActiveMq() throws Exception {
-        activeMqBroker.deleteAllMessages();
-    }
+  @BeforeEach
+  void init() {
+    this.mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
+    //Create a fake Rest Service server
+    RestGatewaySupport gateway = new RestGatewaySupport();
+    gateway.setRestTemplate(restTemplate);
+    mockServer = MockRestServiceServer.createServer(gateway);
+  }
 
-    @AfterEach
-    void shutdownGrpcChannel() {
-        grpcChannel.shutdown();
-    }
+  @BeforeEach
+  void initGrpcChannel() {
+    ManagedChannelBuilder<?> channelBuilder = ManagedChannelBuilder.forAddress("localhost", gRpcServerProperties.getPort()).usePlaintext();
+    grpcChannel = channelBuilder.build();
+  }
 
-    private static KafkaConsumer<String, String> createKafkaConsumerFixture() {
-        Map<String, Object> props = new HashMap<>();
-        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, KAFKA.getBrokersAsString());
-        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, "assertion-consumer-group");
-        KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<>(props);
-        kafkaConsumer.subscribe(Collections.singleton(PARTY_TOPIC));
-        kafkaConsumer.subscribe(Collections.singleton(INVITATION_TOPIC));
-        return kafkaConsumer;
-    }
+  @BeforeEach
+  void resetActiveMq() throws Exception {
+    activeMqBroker.deleteAllMessages();
+  }
 
-    private static KafkaTemplate<String, String> createKafkaProducerFixture() {
-        Map<String, Object> props = new HashMap<>();
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, KAFKA.getBrokersAsString());
-        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        return new KafkaTemplate<>(new DefaultKafkaProducerFactory<>(props));
-    }
+  @AfterEach
+  void shutdownGrpcChannel() {
+    grpcChannel.shutdown();
+  }
 }

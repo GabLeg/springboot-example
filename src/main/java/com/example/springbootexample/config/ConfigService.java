@@ -8,18 +8,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class ConfigService {
 
-    @Value("${rest-client.chuck-jokes.url}")
-    private String chuckJokeUrl;
+  @Value("${rest-client.chuck-jokes.url}")
+  private String chuckJokeUrl;
 
-    @Value("${rest-client.chuck-jokes.health-endpoint}")
-    private String chuckJokeHealthEndpoint;
+  @Value("${rest-client.chuck-jokes.health-endpoint}")
+  private String chuckJokeHealthEndpoint;
 
-    @Value("${message.topic.name}")
-    private String messageTopic;
+  @Value("${message.topic.name}")
+  private String messageTopic;
 
-    @Value("${kafka.topic.party.name}")
-    private String partyTopic;
+  @Value("${kafka.topic.party.name}")
+  private String partyTopic;
 
-    @Value("${kafka.topic.invitation.name}")
-    private String invitationTopic;
+  @Value("${kafka.topic.invitation.name}")
+  private String invitationTopic;
 }
