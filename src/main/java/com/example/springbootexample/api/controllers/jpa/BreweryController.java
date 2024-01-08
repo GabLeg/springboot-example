@@ -1,8 +1,8 @@
 package com.example.springbootexample.api.controllers.jpa;
 
-import com.example.springbootexample.api.controllers.dto.BeerDto;
-import com.example.springbootexample.api.controllers.dto.BrewMasterDto;
-import com.example.springbootexample.api.controllers.dto.BreweryDto;
+import com.example.springbootexample.api.controllers.dto.jpa.BeerDto;
+import com.example.springbootexample.api.controllers.dto.jpa.BrewMasterDto;
+import com.example.springbootexample.api.controllers.dto.jpa.BreweryDto;
 import com.example.springbootexample.domain.object.Brewery;
 import com.example.springbootexample.domain.object.brewMaster.BrewMaster;
 import com.example.springbootexample.domain.services.BreweryService;
