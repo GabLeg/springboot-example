@@ -2,8 +2,8 @@ package com.example.springbootexample.api.kafka;
 
 import com.example.springbootexample.InvitationEvent;
 import com.example.springbootexample.domain.object.Invitation;
-import com.example.springbootexample.mappers.ModelMapper;
 import com.example.springbootexample.domain.services.DoSomethingWithKafkaEventService;
+import com.example.springbootexample.mappers.ModelMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.messaging.handler.annotation.Payload;

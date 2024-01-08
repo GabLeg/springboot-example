@@ -6,7 +6,7 @@ import com.example.springbootexample.infra.client.dto.ChuckJokeDto;
 import com.example.springbootexample.testUtils.ChuckJokeCreator;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static com.google.common.truth.Truth.assertThat;
 
 class ChuckJokeMapperTest extends TestParent {
 
@@ -16,6 +16,6 @@ class ChuckJokeMapperTest extends TestParent {
 
     ChuckJoke chuckJoke = ChuckJokeMapper.dtoToChuckJoke(chuckJokeDTO);
 
-    assertEquals(ChuckJokeCreator.JOKE, chuckJoke.getJoke());
+    assertThat(chuckJoke.getJoke()).isEqualTo(ChuckJokeCreator.JOKE);
   }
 }

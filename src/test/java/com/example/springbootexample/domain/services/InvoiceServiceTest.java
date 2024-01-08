@@ -2,20 +2,18 @@ package com.example.springbootexample.domain.services;
 
 import com.example.springbootexample.config.TestParent;
 import com.example.springbootexample.domain.object.invoice.Invoice;
-import com.example.springbootexample.domain.services.InvoiceService;
 import com.example.springbootexample.infra.repository.InvoiceRepository;
 import com.example.springbootexample.testUtils.InvoiceCreator;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
 class InvoiceServiceTest extends TestParent {
@@ -42,7 +40,7 @@ class InvoiceServiceTest extends TestParent {
 
     Invoice brewery = invoiceService.retrieveInvoice(EXISTING_ID);
 
-    assertEquals(AN_INVOICE, brewery);
+    assertThat(brewery).isEqualTo(AN_INVOICE);
   }
 
   @Test
@@ -58,6 +56,6 @@ class InvoiceServiceTest extends TestParent {
 
     Invoice invoice = invoiceService.createInvoice(AN_INVOICE);
 
-    assertNotEquals(null, invoice.getTotal());
+    assertThat(invoice.getTotal()).isNotNull();
   }
 }

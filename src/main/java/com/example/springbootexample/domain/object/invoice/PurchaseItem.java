@@ -1,10 +1,9 @@
 package com.example.springbootexample.domain.object.invoice;
 
 import com.example.springbootexample.domain.object.Beer;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
 
 @Data
 @NoArgsConstructor

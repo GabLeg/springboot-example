@@ -1,8 +1,8 @@
 package com.example.springbootexample.api.controllers;
 
 import com.example.springbootexample.PartyEvent;
-import com.example.springbootexample.config.IntegrationTestParent;
 import com.example.springbootexample.api.controllers.dto.PartyDto;
+import com.example.springbootexample.config.IntegrationTestParent;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -14,7 +14,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static com.google.common.truth.Truth.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -46,8 +46,8 @@ class PartyControllerTest extends IntegrationTestParent {
       }
     });
     PartyEvent event = partyEvents.get(0);
-    assertEquals(LOCATION, event.getLocation());
-    assertEquals(DATE, event.getDate());
-    assertEquals(MAX_CAPACITY, event.getMaximumCapacity());
+    assertThat(event.getLocation()).isEqualTo(LOCATION);
+    assertThat(event.getDate()).isEqualTo(DATE);
+    assertThat(event.getMaximumCapacity()).isEqualTo(MAX_CAPACITY);
   }
 }

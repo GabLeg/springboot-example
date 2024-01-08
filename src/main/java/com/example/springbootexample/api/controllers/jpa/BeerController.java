@@ -4,12 +4,12 @@ import com.example.springbootexample.api.controllers.dto.BeerDto;
 import com.example.springbootexample.domain.object.Beer;
 import com.example.springbootexample.infra.repository.BeerRepository;
 import com.example.springbootexample.mappers.ModelMapper;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
 @RestController

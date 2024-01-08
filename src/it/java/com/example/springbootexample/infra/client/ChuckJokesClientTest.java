@@ -1,7 +1,7 @@
 package com.example.springbootexample.infra.client;
 
-import com.example.springbootexample.config.IntegrationTestParent;
 import com.example.springbootexample.api.controllers.exceptions.ChuckNorrisException;
+import com.example.springbootexample.config.IntegrationTestParent;
 import com.example.springbootexample.domain.object.chuck.ChuckJoke;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

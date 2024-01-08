@@ -10,7 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class InvoiceControllerTest extends IntegrationTestParent {
 
-  private static final Long EXISTING_ID = 1L;
+  private static final Long EXISTING_ID = 100L;
   private static final Long UNKNOWN_ID = 2L;
 
   @Test
@@ -25,7 +25,7 @@ class InvoiceControllerTest extends IntegrationTestParent {
 
   @Test
   void givenNewInvoice_whenCreateInvoice_thenReturn201() throws Exception {
-    String newInvoice = "{" + "\"purchaseItemList\":[" + "   {" + "       \"quantity\":2," + "       \"beer\": {" + "           \"id\":1" + "       }" + "   }," + "   {" + "       \"quantity\":3," + "       \"beer\": {" + "           \"id\":1" + "       }" + "   }" + "]" + "}";
+    String newInvoice = "{" + "\"purchaseItemList\":[" + "   {" + "       \"quantity\":2," + "       \"beer\": {" + "           \"id\":100" + "       }" + "   }," + "   {" + "       \"quantity\":3," + "       \"beer\": {" + "           \"id\":100" + "       }" + "   }" + "]" + "}";
     this.mockMvc.perform(post("/invoices").content(newInvoice).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
   }
 }

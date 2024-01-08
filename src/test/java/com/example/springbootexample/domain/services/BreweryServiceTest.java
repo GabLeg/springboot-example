@@ -3,17 +3,16 @@ package com.example.springbootexample.domain.services;
 import com.example.springbootexample.config.TestParent;
 import com.example.springbootexample.domain.object.Brewery;
 import com.example.springbootexample.domain.object.brewMaster.BrewMaster;
-import com.example.springbootexample.domain.services.BreweryService;
 import com.example.springbootexample.infra.repository.BreweryRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.*;
 
 class BreweryServiceTest extends TestParent {
@@ -38,7 +37,7 @@ class BreweryServiceTest extends TestParent {
 
     Brewery brewery = breweryService.retrieveBrewery(EXISTING_ID);
 
-    assertEquals(A_BREWERY, brewery);
+    assertThat(brewery).isEqualTo(A_BREWERY);
   }
 
   @Test
