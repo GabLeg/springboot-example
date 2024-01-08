@@ -1,6 +1,6 @@
 package com.example.springbootexample.api.controllers.jpa;
 
-import com.example.springbootexample.api.controllers.dto.BrewMasterDto;
+import com.example.springbootexample.api.controllers.dto.jpa.BrewMasterDto;
 import com.example.springbootexample.domain.object.brewMaster.BrewMaster;
 import com.example.springbootexample.infra.repository.BrewMasterRepository;
 import com.example.springbootexample.mappers.ModelMapper;

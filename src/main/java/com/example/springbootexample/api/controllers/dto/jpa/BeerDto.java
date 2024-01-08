@@ -1,4 +1,4 @@
-package com.example.springbootexample.api.controllers.dto;
+package com.example.springbootexample.api.controllers.dto.jpa;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

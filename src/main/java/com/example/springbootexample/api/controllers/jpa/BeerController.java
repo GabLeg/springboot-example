@@ -1,6 +1,6 @@
 package com.example.springbootexample.api.controllers.jpa;
 
-import com.example.springbootexample.api.controllers.dto.BeerDto;
+import com.example.springbootexample.api.controllers.dto.jpa.BeerDto;
 import com.example.springbootexample.domain.object.Beer;
 import com.example.springbootexample.infra.repository.BeerRepository;
 import com.example.springbootexample.mappers.ModelMapper;

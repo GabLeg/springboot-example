@@ -2,6 +2,7 @@ package com.example.springbootexample.config;
 
 import com.example.springbootexample.SpringbootExampleApplication;
 import com.example.springbootexample.domain.services.DoSomethingWithKafkaEventService;
+import com.example.springbootexample.infra.redis.MovieRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
@@ -19,6 +20,7 @@ import org.lognet.springboot.grpc.autoconfigure.GRpcServerProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -34,6 +36,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.client.support.RestGatewaySupport;
 import org.springframework.web.context.WebApplicationContext;
+import redis.embedded.RedisServer;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -52,9 +55,14 @@ public abstract class IntegrationTestParent {
   protected static final String PARTY_TOPIC = "party-topic";
   protected static final String INVITATION_TOPIC = "invitation-topic";
   protected static final EmbeddedKafkaBroker KAFKA = new EmbeddedKafkaZKBroker(1, true, PARTY_TOPIC, INVITATION_TOPIC).kafkaPorts(9092);
+  protected static final RedisServer REDIS_SERVER = new RedisServer(6379);
   private final static AtomicBoolean started = new AtomicBoolean(false);
   protected static KafkaConsumer<String, String> kafkaConsumerFixture;
   protected static KafkaTemplate<String, String> kafkaProducerFixture;
+  @Autowired
+  private RedisConnectionFactory redisConnectionFactory;
+  @Autowired
+  protected MovieRepository movieRepository;
   @Autowired
   protected ObjectMapper objectMapper;
   @Autowired
@@ -76,6 +84,7 @@ public abstract class IntegrationTestParent {
   @BeforeAll
   static void startEmbeddedServer() {
     if (!started.getAndSet(true)) {
+      REDIS_SERVER.start();
       KAFKA.afterPropertiesSet();
       kafkaConsumerFixture = createKafkaConsumerFixture();
       kafkaProducerFixture = createKafkaProducerFixture();
@@ -110,6 +119,7 @@ public abstract class IntegrationTestParent {
     RestGatewaySupport gateway = new RestGatewaySupport();
     gateway.setRestTemplate(restTemplate);
     mockServer = MockRestServiceServer.createServer(gateway);
+    redisConnectionFactory.getConnection().flushAll();
   }
 
   @BeforeEach

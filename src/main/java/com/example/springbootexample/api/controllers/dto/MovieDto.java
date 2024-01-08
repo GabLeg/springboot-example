@@ -1,13 +1,12 @@
 package com.example.springbootexample.api.controllers.dto;
 
-import com.example.springbootexample.domain.object.brewMaster.Experience;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class BrewMasterDto {
-  private Long id;
+public class MovieDto {
+  private String id;
   private String name;
-  private Experience experience;
+  private String duration;
 }

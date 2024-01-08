@@ -1,6 +1,6 @@
 package com.example.springbootexample.api.controllers.jpa;
 
-import com.example.springbootexample.api.controllers.dto.InvoiceDto;
+import com.example.springbootexample.api.controllers.dto.jpa.InvoiceDto;
 import com.example.springbootexample.domain.object.invoice.Invoice;
 import com.example.springbootexample.domain.services.InvoiceService;
 import com.example.springbootexample.mappers.ModelMapper;
