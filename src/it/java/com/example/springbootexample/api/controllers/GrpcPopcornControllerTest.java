@@ -5,7 +5,7 @@ import com.example.springbootexample.PopcornControllerGrpc;
 import com.example.springbootexample.config.IntegrationTestParent;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static com.google.common.truth.Truth.assertThat;
 
 class GrpcPopcornControllerTest extends IntegrationTestParent {
 

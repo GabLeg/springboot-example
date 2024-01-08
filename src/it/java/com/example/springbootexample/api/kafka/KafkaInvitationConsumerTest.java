@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
 
@@ -30,8 +30,8 @@ class KafkaInvitationConsumerTest extends IntegrationTestParent {
 
     ArgumentCaptor<Invitation> captor = ArgumentCaptor.forClass(Invitation.class);
     verify(doSomethingWithKafkaEventService, timeout(2000)).doSomethingWithEvent(captor.capture());
-    assertEquals(LOCATION, captor.getValue().getLocation());
-    assertEquals(DATE, captor.getValue().getDate());
-    assertEquals(RECIPIENT, captor.getValue().getRecipient());
+    assertThat(captor.getValue().getLocation()).isEqualTo(LOCATION);
+    assertThat(captor.getValue().getDate()).isEqualTo(DATE);
+    assertThat(captor.getValue().getRecipient()).isEqualTo(RECIPIENT);
   }
 }

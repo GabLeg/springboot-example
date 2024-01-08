@@ -1,7 +1,7 @@
 package com.example.springbootexample.infra.client;
 
-import com.example.springbootexample.config.ConfigService;
 import com.example.springbootexample.api.controllers.exceptions.ChuckNorrisException;
+import com.example.springbootexample.config.ConfigService;
 import com.example.springbootexample.domain.object.chuck.ChuckJoke;
 import com.example.springbootexample.infra.client.dto.ChuckJokeDto;
 import org.springframework.stereotype.Component;

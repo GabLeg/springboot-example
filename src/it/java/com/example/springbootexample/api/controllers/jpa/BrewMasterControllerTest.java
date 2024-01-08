@@ -10,7 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class BrewMasterControllerTest extends IntegrationTestParent {
 
-  private static final Long EXISTING_ID = 1L;
+  private static final Long EXISTING_ID = 100L;
   private static final Long UNKNOWN_ID = 2L;
 
   @Test

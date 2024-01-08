@@ -3,8 +3,8 @@ package com.example.springbootexample.api.controllers.jpa;
 import com.example.springbootexample.config.IntegrationTestParent;
 import org.junit.jupiter.api.Test;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class GoodyControllerTest extends IntegrationTestParent {
 
@@ -13,7 +13,7 @@ class GoodyControllerTest extends IntegrationTestParent {
         We just make sure that /goodies exists.
     */
 
-  private static final Long AN_ID = 1L;
+  private static final Long AN_ID = 100L;
 
   @Test
   void givenExistingGoodyId_whenGetGoody_thenReturn200() throws Exception {

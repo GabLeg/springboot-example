@@ -1,11 +1,11 @@
 package com.example.springbootexample.api.controllers;
 
-import com.example.springbootexample.config.IntegrationTestParent;
 import com.example.springbootexample.api.controllers.dto.NewMessageDto;
+import com.example.springbootexample.config.IntegrationTestParent;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static com.google.common.truth.Truth.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -23,7 +23,7 @@ class JmsControllerTest extends IntegrationTestParent {
 
     String stringMessage = (String) jmsTemplate.receiveAndConvert(configService.getMessageTopic());
     NewMessageDto message = objectMapper.readValue(stringMessage, NewMessageDto.class);
-    assertEquals(TITLE, message.getTitle());
-    assertEquals(MESSAGE, message.getMessage());
+    assertThat(message.getTitle()).isEqualTo(TITLE);
+    assertThat(message.getMessage()).isEqualTo(MESSAGE);
   }
 }

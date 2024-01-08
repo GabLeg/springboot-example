@@ -1,13 +1,12 @@
 package com.example.springbootexample.domain.object.invoice;
 
 import com.example.springbootexample.config.TestParent;
-import com.example.springbootexample.domain.object.invoice.Invoice;
 import com.example.springbootexample.testUtils.InvoiceCreator;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static com.google.common.truth.Truth.assertThat;
 
 class InvoiceTest extends TestParent {
 
@@ -19,6 +18,6 @@ class InvoiceTest extends TestParent {
 
     invoice.calculateTotal();
 
-    assertEquals(INVOICE_TOTAL, invoice.getTotal());
+    assertThat(invoice.getTotal()).isEqualTo(INVOICE_TOTAL);
   }
 }

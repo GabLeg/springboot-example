@@ -1,10 +1,10 @@
 package com.example.springbootexample.domain.object;
 
 import com.example.springbootexample.domain.object.brewMaster.BrewMaster;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.util.List;
 
 @Data
