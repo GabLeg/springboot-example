@@ -2,7 +2,7 @@ package com.example.springbootexample.config;
 
 import com.example.springbootexample.SpringbootExampleApplication;
 import com.example.springbootexample.domain.services.DoSomethingWithKafkaEventService;
-import com.example.springbootexample.infra.redis.MovieRepository;
+import com.example.springbootexample.infra.mongo.GameDocument;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
@@ -20,6 +20,8 @@ import org.lognet.springboot.grpc.autoconfigure.GRpcServerProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
@@ -59,10 +61,11 @@ public abstract class IntegrationTestParent {
   private final static AtomicBoolean started = new AtomicBoolean(false);
   protected static KafkaConsumer<String, String> kafkaConsumerFixture;
   protected static KafkaTemplate<String, String> kafkaProducerFixture;
+
   @Autowired
   private RedisConnectionFactory redisConnectionFactory;
   @Autowired
-  protected MovieRepository movieRepository;
+  protected MongoTemplate mongoTemplate;
   @Autowired
   protected ObjectMapper objectMapper;
   @Autowired
@@ -120,6 +123,7 @@ public abstract class IntegrationTestParent {
     gateway.setRestTemplate(restTemplate);
     mockServer = MockRestServiceServer.createServer(gateway);
     redisConnectionFactory.getConnection().flushAll();
+    mongoTemplate.remove(new Query(), GameDocument.class);
   }
 
   @BeforeEach
