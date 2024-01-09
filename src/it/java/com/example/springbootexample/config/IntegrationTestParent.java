@@ -61,9 +61,6 @@ public abstract class IntegrationTestParent {
   private final static AtomicBoolean started = new AtomicBoolean(false);
   protected static KafkaConsumer<String, String> kafkaConsumerFixture;
   protected static KafkaTemplate<String, String> kafkaProducerFixture;
-
-  @Autowired
-  private RedisConnectionFactory redisConnectionFactory;
   @Autowired
   protected MongoTemplate mongoTemplate;
   @Autowired
@@ -79,6 +76,8 @@ public abstract class IntegrationTestParent {
   protected MockMvc mockMvc;
   protected MockRestServiceServer mockServer;
   protected ManagedChannel grpcChannel;
+  @Autowired
+  private RedisConnectionFactory redisConnectionFactory;
   @Autowired
   private WebApplicationContext context;
   @Autowired
