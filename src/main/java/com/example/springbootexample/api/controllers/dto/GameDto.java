@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class MovieDto {
+public class GameDto {
   private String id;
   private String name;
-  private String duration;
+  private String publisher;
 }

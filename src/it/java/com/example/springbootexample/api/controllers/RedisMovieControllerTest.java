@@ -1,13 +1,18 @@
 package com.example.springbootexample.api.controllers;
 
+import com.example.springbootexample.api.controllers.dto.MovieDto;
 import com.example.springbootexample.config.IntegrationTestParent;
 import com.example.springbootexample.infra.redis.MovieDocument;
+import com.example.springbootexample.infra.redis.MovieRepository;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MvcResult;
 
 import java.time.Duration;
 import java.util.UUID;
 
+import static com.google.common.truth.Truth.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -16,16 +21,22 @@ class RedisMovieControllerTest extends IntegrationTestParent {
 
   private static final String AN_ID = UUID.randomUUID().toString();
   private static final String UNKNOWN_ID = UUID.randomUUID().toString();
-  private static final MovieDocument.MovieDocumentBuilder MOVIE_DOCUMENT_BUILDER = MovieDocument.builder()
-                                                                                                .name("Titanic")
-                                                                                                .duration(Duration.ofHours(2));
+  private static final String NAME = "Titanic";
+  private static final Duration DURATION = Duration.ofHours(2);
+
+  @Autowired
+  private MovieRepository movieRepository;
 
   @Test
   void givenExistingMovieId_whenFindMovieById_thenReturn200() throws Exception {
-    MovieDocument movieDocument = MOVIE_DOCUMENT_BUILDER.id(AN_ID).build();
+    MovieDocument movieDocument = MovieDocument.builder().id(AN_ID).name(NAME).duration(DURATION).build();
     movieRepository.save(movieDocument);
 
-    this.mockMvc.perform(get("/movies/" + AN_ID)).andExpect(status().isOk());
+    MvcResult mvcResult = this.mockMvc.perform(get("/movies/" + AN_ID)).andExpect(status().isOk()).andReturn();
+    MovieDto movie = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), MovieDto.class);
+    assertThat(movie.getName()).isEqualTo(NAME);
+    assertThat(movie.getDuration()).isEqualTo(DURATION.toString());
+    assertThat(movie.getId()).isEqualTo(AN_ID);
   }
 
   @Test
@@ -35,8 +46,16 @@ class RedisMovieControllerTest extends IntegrationTestParent {
 
   @Test
   void givenNewMovie_whenCreateMovie_thenReturn201() throws Exception {
-    String payload = objectMapper.writeValueAsString(MOVIE_DOCUMENT_BUILDER.build());
-    this.mockMvc.perform(post("/movies").content(payload).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
+    MovieDto movieDto = MovieDto.builder().name(NAME).duration(DURATION.toString()).build();
+    String payload = objectMapper.writeValueAsString(movieDto);
+    MvcResult mvcResult = this.mockMvc.perform(post("/movies").content(payload).contentType(MediaType.APPLICATION_JSON))
+                                      .andExpect(status().isCreated())
+                                      .andReturn();
+
+    MovieDto createdMovie = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), MovieDto.class);
+    assertThat(createdMovie.getName()).isEqualTo(NAME);
+    assertThat(createdMovie.getDuration()).isEqualTo(DURATION.toString());
+    assertThat(createdMovie.getId()).isNotNull();
   }
 
 }
