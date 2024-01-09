@@ -29,7 +29,7 @@ class RedisMovieControllerTest extends IntegrationTestParent {
 
   @Test
   void givenExistingMovieId_whenFindMovieById_thenReturn200() throws Exception {
-    MovieDocument movieDocument = MovieDocument.builder().name(NAME).duration(DURATION).build();
+    MovieDocument movieDocument = MovieDocument.builder().id(AN_ID).name(NAME).duration(DURATION).build();
     movieRepository.save(movieDocument);
 
     MvcResult mvcResult = this.mockMvc.perform(get("/movies/" + AN_ID)).andExpect(status().isOk()).andReturn();
