@@ -15,7 +15,7 @@
   <description>Demo project for Spring Boot</description>
 
   <properties>
-    <avro.version>1.11.3</avro.version>
+    <avro.version>1.11.4</avro.version>
     <embedded-mongo.version>1.44.0</embedded-mongo.version>
     <embedded-redis.version>0.7.3</embedded-redis.version>
     <google-truth.version>1.2.0</google-truth.version>
